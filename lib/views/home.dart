@@ -17,7 +17,10 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             icon: const Icon(Icons.refresh),
             tooltip: "Refresh feed",
-            onPressed: () {}
+            onPressed: () {
+              // Refreshes state
+              setState(() {});
+            }
           )
         ],
       ),
