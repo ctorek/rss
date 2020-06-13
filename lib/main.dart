@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'views/home.dart';
+
 void main() {
   runApp(App());
 }
@@ -10,7 +12,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: "RSS Reader",
       theme: ThemeData(primarySwatch: Colors.indigo),
-      home: Scaffold()
+      home: HomePage()
     );
   }
 }
