@@ -26,6 +26,7 @@ dependencies:
   http:
   webfeed:
   shared_preferences:
+  validators:
 
 
   # The following adds the Cupertino Icons font to your application.
