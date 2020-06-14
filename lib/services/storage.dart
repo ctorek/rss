@@ -12,7 +12,12 @@ Future<List<String>> getList(String listName) async {
   return prefs.getStringList(listName) ?? List<String>();
 }
 
-Future<void> addToList(String listName, String element) {
+Future<void> addToList(String listName, String element) async  {
   final prefs = await SharedPreferences.getInstance();
-  prefs.setStringList(listName, getList(listName).add(element));
+  prefs.setStringList(listName, (await getList(listName))..add(element));
+}
+
+Future<void> deleteFromList(String listName, int index) async {
+  final prefs = await SharedPreferences.getInstance();
+  prefs.setStringList(listName, (await getList(listName))..removeAt(index));
 }
