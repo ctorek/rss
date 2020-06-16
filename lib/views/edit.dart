@@ -65,7 +65,7 @@ class _EditPageState extends State<EditPage> {
                           );
                         },
                       )
-                );
+                  );
                 }
                 return Align(
                   alignment: Alignment.center,
@@ -84,7 +84,6 @@ class _EditPageState extends State<EditPage> {
             setState(() {
               addToList("feeds", _editController.text);
             });
-            Navigator.pop(context);
           }
         }
       ),
