@@ -38,36 +38,34 @@ class _EditPageState extends State<EditPage> {
                     if (!isURL(value)) {
                       return "Value is not a valid URL.";
                     }
-                    Scaffold.of(context).showSnackBar(
-                      SnackBar(content: Text("RSS source successfully added!"))
-                    );
                     return null;
                   },
                 )
               ]
             )
           ),
-          Container(
-            child: FutureBuilder(
+          FutureBuilder(
               builder: (BuildContext ctx, AsyncSnapshot snapshot) {
                 if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
-                  return ListView.builder(
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (BuildContext ctxt, int index) {
-                      return ListTile(
-                        leading: Icon(Icons.rss_feed),
-                        title: snapshot.data[index],
-                        trailing: IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () {
-                            setState(() {
-                              deleteFromList("feeds", index);
-                            });
-                          },
-                        ),
-                      );
-                    },
-                  );
+                  return Expanded(
+                      child: ListView.builder(
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (BuildContext ctxt, int index) {
+                          return ListTile(
+                            leading: Icon(Icons.rss_feed),
+                            title: Text(snapshot.data[index]),
+                            trailing: IconButton(
+                              icon: Icon(Icons.delete),
+                              onPressed: () {
+                                setState(() {
+                                  deleteFromList("feeds", index);
+                                });
+                              },
+                            ),
+                          );
+                        },
+                      )
+                );
                 }
                 return Align(
                   alignment: Alignment.center,
@@ -76,7 +74,6 @@ class _EditPageState extends State<EditPage> {
               },
               future: getList("feeds")
             )
-          )
         ]
       ),
       floatingActionButton: FloatingActionButton(
