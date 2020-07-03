@@ -32,14 +32,17 @@ class _EditPageState extends State<EditPage> {
             key: _editFormKey,
             child: Column(
               children: <Widget>[
-                TextFormField(
-                  controller: _editController,
-                  validator: (value) {
-                    if (!isURL(value)) {
-                      return "Value is not a valid URL.";
-                    }
-                    return null;
-                  },
+                Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: TextFormField(
+                    controller: _editController,
+                    validator: (value) {
+                      if (!isURL(value)) {
+                        return "Value is not a valid URL.";
+                      }
+                      return null;
+                    },
+                  )
                 )
               ]
             )
