@@ -10,7 +10,18 @@ Future<RssFeed> getRssFeed(String url) async {
   return RssFeed.parse(xml);
 }
 
-Future<List<RssFeed>> getRssFeedsStorage() async {
+Stream<RssFeed> getRssFeedsStorage() async* {
   final urls = await getList("feeds");
+  var feeds = List<RssFeed>();
+  for (var u in urls) {
+    yield RssFeed.parse(await http.read(u));
+  }
+}
 
+Future<List<RssFeed>> getFeedsAsList() async {
+  var allFeeds = List<RssFeed>();
+  await for (var feed in getRssFeedsStorage()) {
+    allFeeds.add(feed);
+  }
+  return allFeeds;
 }

@@ -30,29 +30,21 @@ class _HomePageState extends State<HomePage> {
           FutureBuilder(
             builder: (BuildContext ctxt, AsyncSnapshot snapshot) {
               if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
-                // Add all items to single list
-                var allItems = List<RssItem>();
+                //print(allItems.length);
+                var all = List<RssItem>();
                 snapshot.data.forEach((feed) {
-                  allItems.addAll(feed.items);
+                  all.addAll(feed.items);
                 });
-
-                // Sort list by item publish date
-                /* lmao this shit broke
-                allItems.sort((a, b) {
-                  return (DateTime.parse(a.pubDate)).compareTo(DateTime.parse(b.pubDate));
-                }); */
-
-                print(allItems.length);
 
                 return Expanded(
                   child: ListView.builder(
-                    itemCount: allItems.length,
+                    itemCount: all.length,
                     itemBuilder: (BuildContext ctxt, int index) {
-                      return ListTile(
-                        title: Text(allItems[index].title),
-                        subtitle: Text(allItems[index].pubDate),
-                        contentPadding: EdgeInsets.all(16.0)
-                      );
+                        return ListTile(
+                            title: Text(all[index].title),
+                            subtitle: Text(all[index].pubDate),
+                            contentPadding: EdgeInsets.all(16.0)
+                        );
                     },
                   )
                 );
@@ -62,7 +54,7 @@ class _HomePageState extends State<HomePage> {
                 child: CircularProgressIndicator(),
               );
             },
-            future: getRssFeedsStorage()
+            future: getFeedsAsList()
           )
         ]
       ),
