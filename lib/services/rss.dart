@@ -12,11 +12,5 @@ Future<RssFeed> getRssFeed(String url) async {
 
 Future<List<RssFeed>> getRssFeedsStorage() async {
   final urls = await getList("feeds");
-  var feeds = List<RssFeed>();
-  urls.forEach((url) async {
-    var xml = await http.read(url);
-    feeds.add(RssFeed.parse(xml));
-  });
 
-  return feeds;
 }

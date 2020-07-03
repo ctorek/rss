@@ -37,9 +37,10 @@ class _HomePageState extends State<HomePage> {
                 });
 
                 // Sort list by item publish date
+                /* lmao this shit broke
                 allItems.sort((a, b) {
                   return (DateTime.parse(a.pubDate)).compareTo(DateTime.parse(b.pubDate));
-                });
+                }); */
 
                 print(allItems.length);
 
