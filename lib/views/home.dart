@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
                     itemBuilder: (BuildContext ctxt, int index) {
                         return ListTile(
                           title: Text(all[index].title),
-                          subtitle: Text(all[index].pubDate),
+                          subtitle: Text(all[index].author ?? "Unknown author" + " | " + all[index].pubDate ?? "Unknown date"),
                           contentPadding: EdgeInsets.all(16.0),
                           onTap: () {
                             launch(all[index].link);
