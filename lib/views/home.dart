@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:intl/intl.dart';
 import 'package:webfeed/webfeed.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -35,6 +36,10 @@ class _HomePageState extends State<HomePage> {
                 var all = List<RssItem>();
                 snapshot.data.forEach((feed) {
                   all.addAll(feed.items);
+                });
+
+                all.sort((a, b) {
+                  return -DateFormat('EEE, dd MMM yyyy HH:mm:ss Z', 'en_US').parse(a.pubDate).compareTo(DateFormat('EEE, dd MMM yyyy HH:mm:ss Z', 'en_US').parse(b.pubDate));
                 });
 
                 return Expanded(
