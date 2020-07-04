@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:webfeed/webfeed.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import './edit.dart';
 import '../services/rss.dart';
@@ -41,9 +42,12 @@ class _HomePageState extends State<HomePage> {
                     itemCount: all.length,
                     itemBuilder: (BuildContext ctxt, int index) {
                         return ListTile(
-                            title: Text(all[index].title),
-                            subtitle: Text(all[index].pubDate),
-                            contentPadding: EdgeInsets.all(16.0)
+                          title: Text(all[index].title),
+                          subtitle: Text(all[index].pubDate),
+                          contentPadding: EdgeInsets.all(16.0),
+                          onTap: () {
+                            launch(all[index].link);
+                          }
                         );
                     },
                   )
