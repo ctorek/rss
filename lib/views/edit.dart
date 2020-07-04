@@ -86,6 +86,7 @@ class _EditPageState extends State<EditPage> {
           if (_editFormKey.currentState.validate()) {
             setState(() {
               addToList("feeds", _editController.text);
+              _editController.clear();
             });
           }
         }
