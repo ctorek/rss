@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:webfeed/webfeed.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:clipboard_manager/clipboard_manager.dart';
 
 import './edit.dart';
 import '../services/rss.dart';
@@ -49,6 +50,13 @@ class _HomePageState extends State<HomePage> {
                         return ListTile(
                           title: Text(all[index].title),
                           subtitle: Text(all[index].author ?? "Unknown author" + " | " + all[index].pubDate ?? "Unknown date"),
+                          trailing: IconButton(
+                            icon: Icon(Icons.content_copy),
+                            tooltip: "Copy link to post",
+                            onPressed: () {
+                              ClipboardManager.copyToClipBoard(all[index].link);
+                            }
+                          ),
                           contentPadding: EdgeInsets.all(16.0),
                           onTap: () {
                             launch(all[index].link);
