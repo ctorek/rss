@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:intl/intl.dart';
 import 'package:webfeed/webfeed.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:clipboard_manager/clipboard_manager.dart';
 
 import './edit.dart';
 import '../services/rss.dart';
@@ -54,7 +54,9 @@ class _HomePageState extends State<HomePage> {
                             icon: Icon(Icons.content_copy),
                             tooltip: "Copy link to post",
                             onPressed: () {
-                              ClipboardManager.copyToClipBoard(all[index].link);
+                              Clipboard.setData(
+                                ClipboardData(text: all[index].link)
+                              );
                             }
                           ),
                           contentPadding: EdgeInsets.all(16.0),
