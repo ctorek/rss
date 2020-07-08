@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           FutureBuilder(
-            builder: (BuildContext ctxt, AsyncSnapshot snapshot) {
+            builder: (BuildContext ctx, AsyncSnapshot snapshot) {
               if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
                 //print(allItems.length);
                 var all = List<RssItem>();
@@ -40,7 +40,8 @@ class _HomePageState extends State<HomePage> {
                 });
 
                 all.sort((a, b) {
-                  return -DateFormat('EEE, dd MMM yyyy HH:mm:ss Z', 'en_US').parse(a.pubDate).compareTo(DateFormat('EEE, dd MMM yyyy HH:mm:ss Z', 'en_US').parse(b.pubDate));
+                  var format = DateFormat('EEE, dd MMM yyyy HH:mm:ss Z', 'en_US');
+                  return -format.parse(a.pubDate).compareTo(format.parse(b.pubDate));
                 });
 
                 return Expanded(
@@ -57,6 +58,9 @@ class _HomePageState extends State<HomePage> {
                               Clipboard.setData(
                                 ClipboardData(text: all[index].link)
                               );
+                              Scaffold.of(ctx).showSnackBar(SnackBar(
+                                content: Text("Link copied"),
+                              ));
                             }
                           ),
                           contentPadding: EdgeInsets.all(16.0),
