@@ -61,7 +61,7 @@ class _EditPageState extends State<EditPage> {
                               icon: Icon(Icons.delete),
                               onPressed: () {
                                 setState(() {
-                                  deleteFromList("feeds", index);
+                                  deleteSource(index);
                                 });
                                 Scaffold.of(ctx).showSnackBar(SnackBar(
                                   content: Text("URL successfully deleted")
@@ -78,7 +78,7 @@ class _EditPageState extends State<EditPage> {
                   child: CircularProgressIndicator()
                 );
               },
-              future: getList("feeds")
+              future: getAllSources()
             )
         ]
       ),
@@ -88,7 +88,10 @@ class _EditPageState extends State<EditPage> {
           // Save new list of RSS feeds, go back to home
           if (_editFormKey.currentState.validate()) {
             setState(() {
-              addToList("feeds", _editController.text);
+              addSource(Source(
+                url: _editController.text,
+                type: "rss"
+              ));
               _editController.clear();
             });
           }

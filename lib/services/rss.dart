@@ -11,10 +11,10 @@ Future<RssFeed> getRssFeed(String url) async {
 }
 
 Stream<RssFeed> getRssFeedsStorage() async* {
-  final urls = await getList("feeds");
+  final urls = await getAllSources();
   var feeds = List<RssFeed>();
   for (var u in urls) {
-    yield RssFeed.parse(await http.read(u));
+    if (u.type == "rss") yield RssFeed.parse(await http.read(u.url));
   }
 }
 
