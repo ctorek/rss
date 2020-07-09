@@ -63,6 +63,9 @@ class _EditPageState extends State<EditPage> {
                                 setState(() {
                                   deleteFromList("feeds", index);
                                 });
+                                Scaffold.of(ctx).showSnackBar(SnackBar(
+                                  content: Text("URL successfully deleted")
+                                ));
                               },
                             ),
                           );
