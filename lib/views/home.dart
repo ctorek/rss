@@ -33,14 +33,17 @@ class _HomePageState extends State<HomePage> {
           FutureBuilder(
             builder: (BuildContext ctx, AsyncSnapshot snapshot) {
               if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
-                //print(allItems.length);
+                // the library dev won't merge prs hhhh
+                var format = DateFormat('EEE, dd MMM yyyy HH:mm:ss Z', 'en_US');
+
                 var all = List<RssItem>();
                 snapshot.data.forEach((feed) {
-                  all.addAll(feed.items);
+                  all += feed.items.where((item) {
+                    return format.parse(item.pubDate).year > DateTime.now().year - 1;
+                  }).toList();
                 });
 
                 all.sort((a, b) {
-                  var format = DateFormat('EEE, dd MMM yyyy HH:mm:ss Z', 'en_US');
                   return -format.parse(a.pubDate).compareTo(format.parse(b.pubDate));
                 });
 
