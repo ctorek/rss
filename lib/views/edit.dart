@@ -49,33 +49,27 @@ class _EditPageState extends State<EditPage> {
           ),
           FutureBuilder(
               builder: (BuildContext ctx, AsyncSnapshot snapshot) {
-                if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
-                  return Expanded(
-                      child: ListView.builder(
-                        itemCount: snapshot.data.length,
-                        itemBuilder: (BuildContext ctxt, int index) {
-                          return ListTile(
-                            leading: Icon(Icons.rss_feed),
-                            title: Text(snapshot.data[index]),
-                            trailing: IconButton(
-                              icon: Icon(Icons.delete),
-                              onPressed: () {
-                                setState(() {
-                                  deleteFromList("feeds", index);
-                                });
-                                Scaffold.of(ctx).showSnackBar(SnackBar(
-                                  content: Text("URL successfully deleted")
-                                ));
-                              },
-                            ),
-                          );
-                        },
-                      )
-                  );
-                }
-                return Align(
-                  alignment: Alignment.center,
-                  child: CircularProgressIndicator()
+                return Expanded(
+                    child: ListView.builder(
+                      itemCount: snapshot.data?.length ?? 0,
+                      itemBuilder: (BuildContext ctxt, int index) {
+                        return ListTile(
+                          leading: Icon(Icons.rss_feed),
+                          title: Text(snapshot.data[index]),
+                          trailing: IconButton(
+                            icon: Icon(Icons.delete),
+                            onPressed: () {
+                              setState(() {
+                                deleteFromList("feeds", index);
+                              });
+                              Scaffold.of(ctx).showSnackBar(SnackBar(
+                                content: Text("URL successfully deleted")
+                              ));
+                            },
+                          ),
+                        );
+                      },
+                    )
                 );
               },
               future: getList("feeds")
